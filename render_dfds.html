@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 40px;
+            background: white;
+            display: flex;
+            gap: 40px;
+        }
+
+        .sidebar {
+            width: 300px;
+            flex-shrink: 0;
+        }
+
+        .sidebar img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 40px;
+        }
+
+        .content {
+            flex-grow: 1;
+            min-width: 0;
+        }
+
+        .diagram-container {
+            margin-bottom: 100px;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <!-- Add image on the left side -->
+        <img src="{% static 'images/dr_michael_brown.png' %}" alt="AI HELPER">
+    </div>
+
+    <div class="content">
+        <div class="diagram-container" id="level0">
+            <h2>DFD Level 0: Context Diagram</h2>
+            <pre class="mermaid">
+graph TD
+    Patient((Patient))
+    Doctor((Doctor))
+    Admin((Admin))
+    System[0.0 Skin Detection System]
+
+    Patient -- "Image, Auth, Payments" --> System
+    System -- "Analysis Results, Invoices" --> Patient
+    
+    Doctor -- "Medical Reviews, Availability" --> System
+    System -- "Appointment Alerts, Patient Lists" --> Doctor
+    
+    Admin -- "Policy Updates, Audit Queries" --> System
+    System -- "Analytics, Revenue Data, Audit Logs" --> Admin
+        </pre>
+        </div>
+
+        <div class="diagram-container" id="level1">
+            <h2>DFD Level 1: System Overview</h2>
+            <pre class="mermaid">
+graph TD
+    Patient((Patient))
+    Doctor((Doctor))
+    Admin((Admin))
+    
+    subgraph Processes
+        P1[1.0 Image & AI Analysis]
+        P2[2.0 Appointment Management]
+        P3[3.0 Billing & Finance]
+        P4[4.0 Admin Reporting]
+    end
+    
+    subgraph Data Stores
+        DS1[(User DB)]
+        DS2[(Analysis DB)]
+        DS3[(Appointment DB)]
+        DS4[(Financial DB)]
+    end
+    
+    Patient -- "Upload Image" --> P1
+    P1 -- "Store Result" --> DS2
+    DS2 -- "Fetch Analysis" --> P1
+    P1 -- "View Report" --> Patient
+    
+    Patient -- "Book Appt" --> P2
+    Doctor -- "Update Status" --> P2
+    P2 -- "Record Appt" --> DS3
+    
+    P2 -- "Trigger Invoice" --> P3
+    P3 -- "Record Payment" --> DS4
+    Patient -- "Make Payment" --> P3
+    
+    Admin -- "Query Stats" --> P4
+    P4 -- "Read Data" --> DS2
+    P4 -- "Read Finance" --> DS4
+    P4 -- "Generate Charts" --> Admin
+        </pre>
+        </div>
+
+        <div class="diagram-container" id="level2">
+            <h2>DFD Level 2: Image & AI Analysis</h2>
+            <pre class="mermaid">
+graph TD
+    Patient((Patient))
+    
+    subgraph P1[1.0 Image Analysis Detail]
+        P1_1[1.1 Upload & Validation]
+        P1_2[1.2 AI Feature Extraction]
+        P1_3[1.3 Classification & Scoring]
+        P1_4[1.4 Consensus Engine]
+        P1_5[1.5 Result Serialization]
+    end
+    
+    DS2[(Analysis DB)]
+    
+    Patient -- "Raw Image" --> P1_1
+    P1_1 -- "Clean Image" --> P1_2
+    P1_2 -- "Features" --> P1_3
+    P1_3 -- "Logic: Confidence > 95%" --> P1_4
+    P1_4 -- "Final Label" --> P1_5
+    P1_5 -- "Normalized Data" --> DS2
+    DS2 -- "Persistent Result" --> Patient
+        </pre>
+        </div>
+    </div>
+</body>
+
+</html>

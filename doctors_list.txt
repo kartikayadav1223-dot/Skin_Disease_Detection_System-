@@ -1,0 +1,7 @@
+ID:2|Username:testuser_debug|Name:|Spec:Dermatologist|Verified:False
+ID:5|Username:dr_smith|Name:John Smith|Spec:Dermatologist|Verified:True
+ID:6|Username:dr_sarah|Name:Sarah Johnson|Spec:Dermatopathology|Verified:True
+ID:7|Username:dr_robert|Name:Robert Wilson|Spec:Cosmetic Dermatology|Verified:True
+ID:8|Username:dr_emily|Name:Emily Chen|Spec:Pediatric Dermatology|Verified:True
+ID:9|Username:dr_michael|Name:Michael Brown|Spec:Procedural Dermatology|Verified:True
+ID:10|Username:dr_aisha|Name:Aisha Khan|Spec:Clinical Dermatology|Verified:True
